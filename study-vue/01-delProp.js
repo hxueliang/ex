@@ -2,6 +2,9 @@
 
 // 设置响应式属性
 function defineReactive(obj, key, val) {
+  // 递归
+  observe(val)
+  // 对传入的obj进行访问拦截
   Object.defineProperty(obj, key, {
     get() {
       console.log('get -> ' + key)
@@ -43,4 +46,4 @@ obj.foo
 obj.foo = 'foooooooo'
 obj.bar
 obj.bar = 'barrrrrrr'
-obj.baz.a = 1 // 不是响应式数据
+obj.baz.a = 2 // 不是响应式数据
