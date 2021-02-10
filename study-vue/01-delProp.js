@@ -1,5 +1,6 @@
 // let obj = {}
 
+// 设置响应式属性
 function defineReactive(obj, key, val) {
   Object.defineProperty(obj, key, {
     get() {
@@ -19,6 +20,7 @@ function defineReactive(obj, key, val) {
 // obj.foo
 // obj.foo = 'fooooooooo'
 
+// 遍历对象属性 实现所有属性响应式
 function observe(obj) {
   if (typeof obj !== 'object' || typeof obj === null) {
     return
@@ -27,7 +29,7 @@ function observe(obj) {
     defineReactive(obj, key, obj[key])
   })
 }
-
+// 数据对象
 let obj = {
   foo: 'foo',
   bar: 'bar',
@@ -36,6 +38,7 @@ let obj = {
   }
 }
 observe(obj)
+// 测试数据
 obj.foo
 obj.foo = 'foooooooo'
 obj.bar
