@@ -34,6 +34,10 @@ function observe(obj) {
     defineReactive(obj, key, obj[key])
   })
 }
+// 为新增的属性设置响应式
+function set(obj, key, val) {
+  defineReactive(obj, key, val)
+}
 // 数据对象
 let obj = {
   foo: 'foo',
@@ -52,3 +56,8 @@ obj.baz.a = 2 // 不是响应式数据
 
 obj.baz = { a: 10 }
 obj.baz.a = 1000
+
+// 新添加的属性
+// obj.dong = ''
+set(obj, 'dong', '')
+obj.dong = 'donggggg'
