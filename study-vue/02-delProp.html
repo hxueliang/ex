@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>响应式数据的页面数据渲染</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+
+  <script>
+    let obj = {}
+    // 设置响应式属性
+    function defineReactive(obj, key, val) {
+      Object.defineProperty(obj, key, {
+        get() {
+          // console.log('get -> ' + key)
+          return val
+        },
+        set(newVale) {
+          if (newVale !== val) {
+            // console.log(`set -> ${key}:${val}`)
+            val = newVale
+          }
+          // 调用更新函数
+          update()
+        }
+      })
+    }
+    // 更新函数
+    function update() {
+      app.innerText = obj.foo
+    }
+    // 设置响应式属性
+    defineReactive(obj, 'foo', '')
+    // 更新响应式属性值
+    obj.foo = 'start'
+    setInterval(() => {
+      // 定时更新响应式属性值
+      obj.foo = new Date().toLocaleString()
+    }, 1000)
+  </script>
+</html>
