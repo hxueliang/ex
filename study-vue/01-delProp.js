@@ -13,6 +13,8 @@ function defineReactive(obj, key, val) {
     set(newVale) {
       if (newVale !== val) {
         console.log(`set -> ${key}:${newVale}`)
+        // 如果传入的newVale依然是obj, 需要做响应化处理
+        observe(newVale)
         val = newVale
       }
     }
@@ -47,3 +49,6 @@ obj.foo = 'foooooooo'
 obj.bar
 obj.bar = 'barrrrrrr'
 obj.baz.a = 2 // 不是响应式数据
+
+obj.baz = { a: 10 }
+obj.baz.a = 1000
