@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>aVue</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{counter}}</p>
+    </div>
+  </body>
+  <script src="avue.js"></script>
+  <script>
+    const app = new AVue({
+      el: '#app',
+      data: {
+        counter: 1
+      }
+    })
+
+    setInterval(() => {
+      app.$data.counter++
+    }, 1000)
+  </script>
+</html>
