@@ -28,6 +28,22 @@ function observe(obj) {
   new Observer(obj)
 }
 
+// 代理函数，方便用户直接访问$data中的数据
+function proxy(vm, sourceKey) {
+  // 此处sourceKey为'$data'
+  Object.keys(vm[sourceKey]).forEach(key => {
+    Object.defineProperty(vm, key, {
+      get() {
+        return vm[sourceKey][key]
+      },
+      set(newVal) {
+        vm[sourceKey][key] = newVal
+      }
+    })
+  })
+}
+
+// 创建AVue构造函数
 class AVue {
   constructor(options) {
     // 保存选项
@@ -36,6 +52,9 @@ class AVue {
 
     // 响应化处理
     observe(this.$data)
+
+    // 代理
+    proxy(this, '$data')
   }
 }
 
