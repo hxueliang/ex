@@ -78,4 +78,9 @@ class Compiler {
   text(node, exp) {
     node.textContent = this.$vm[exp]
   }
+
+  // a-html
+  html(node, exp) {
+    node.innerHTML = this.$vm[exp]
+  }
 }

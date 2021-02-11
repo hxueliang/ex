@@ -12,6 +12,7 @@
       <p>{{counter}}</p>
       <!-- 指令 -->
       <p a-text="counter"></p>
+      <p a-html="desc"></p>
     </div>
   </body>
   <script src="compiler.js"></script>
@@ -20,7 +21,8 @@
     const app = new AVue({
       el: '#app',
       data: {
-        counter: 1
+        counter: 1,
+        desc: '<span style="color: red;">html</span>'
       }
     })
 
