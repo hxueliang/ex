@@ -50,7 +50,8 @@ class Compiler {
 
   // 编译文本
   compileText(node) {
-    node.textContent = this.$vm[RegExp.$1]
+    // node.textContent = this.$vm[RegExp.$1]
+    this.update(node, RegExp.$1, 'text')
   }
 
   // 编译元素
@@ -74,13 +75,40 @@ class Compiler {
     return attrName.indexOf('a-') === 0
   }
 
+  // 公共的更新函数
+  update(node, exp, dir) {
+    // 初始化
+    // 指令对应的更新函数xxUpdater
+    const fn = this[dir + 'Updater']
+    fn && fn(node, this.$vm[exp])
+
+    // 更新处理，封装一个更新函数，可以更新对应dom元素
+    new Watcher(this.$vm, exp, function (val) {
+      fn && fn(node, val)
+    })
+  }
+
+
+
   // a-text
   text(node, exp) {
-    node.textContent = this.$vm[exp]
+    // node.textContent = this.$vm[exp]
+    this.update(node, exp, 'text')
   }
 
   // a-html
   html(node, exp) {
-    node.innerHTML = this.$vm[exp]
+    // node.innerHTML = this.$vm[exp]
+    this.update(node, exp, 'html')
+  }
+
+  // a-text更新函数
+  textUpdater(node, value) {
+    node.textContent = value
+  }
+
+  // a-html更新函数
+  htmlUpdater(node, value) {
+    node.innerHTML = value
   }
 }

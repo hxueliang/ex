@@ -14,6 +14,9 @@ function defineReactive(obj, key, val) {
         // 如果传入的newVale依然是obj, 需要做响应化处理
         observe(newVale)
         val = newVale
+
+        // 执行更新函数，没实现dep，只要一个值变化就是执行所有更新函数
+        watchers.forEach(w => w.update())
       }
     }
   })
@@ -78,5 +81,21 @@ class Observer {
     Object.keys(obj).forEach(key => {
       defineReactive(obj, key, obj[key])
     })
+  }
+}
+
+// 观察者：保存更新函数，值发生变化调用更新函数
+const watchers = [] // 临时使用，将来会被dep取代
+class Watcher {
+  constructor(vm, key, updateFn) {
+    this.vm = vm
+    this.key = key
+    this.updateFn = updateFn
+
+    watchers.push(this)
+  }
+
+  update() {
+    this.updateFn.call(this.vm, this.vm[this.key])
   }
 }
