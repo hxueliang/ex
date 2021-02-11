@@ -56,6 +56,9 @@ class AVue {
 
     // 代理
     proxy(this, '$data')
+
+    // 创建编译器
+    new Compiler(options.el, this)
   }
 }
 
