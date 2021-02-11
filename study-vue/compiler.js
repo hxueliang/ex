@@ -24,7 +24,8 @@ class Compiler {
       if (this.isElement(node)) {
         console.log('编译元素：' + node.nodeName)
       } else if (this.isInter(node)) {
-        console.log('编译插值绑定：' + node.textContent)
+        // console.log('编译插值绑定：' + node.textContent)
+        this.compileText(node)
       }
       // 递归子节点
       if (node.childNodes && node.childNodes.length > 0) {
@@ -44,5 +45,10 @@ class Compiler {
     // 文本标签 && {{xx}}
     console.log()
     return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
+  }
+
+  // 编译文本
+  compileText(node) {
+    node.textContent = this.$vm[RegExp.$1]
   }
 }
