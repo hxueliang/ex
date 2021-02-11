@@ -30,8 +30,9 @@ function observe(obj) {
 
 // 代理函数，方便用户直接访问$data中的数据
 function proxy(vm, sourceKey) {
-  // 此处sourceKey为'$data'
+  // 此处 vm[sourceKey] 就是 vm.$data
   Object.keys(vm[sourceKey]).forEach(key => {
+    // 将$data中的key代理到vm属性中
     Object.defineProperty(vm, key, {
       get() {
         return vm[sourceKey][key]
@@ -58,8 +59,10 @@ class AVue {
   }
 }
 
+// 根据对象类型决定如何做响应化
 class Observer {
   constructor(value) {
+    // 保存选项
     this.value = value
 
     if (typeof value === 'object') {
