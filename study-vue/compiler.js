@@ -22,7 +22,8 @@ class Compiler {
     Array.from(childNodes).forEach(node => {
       // 判断类型
       if (this.isElement(node)) {
-        console.log('编译元素：' + node.nodeName)
+        // console.log('编译元素：' + node.nodeName)
+        this.compileElement(node)
       } else if (this.isInter(node)) {
         // console.log('编译插值绑定：' + node.textContent)
         this.compileText(node)
@@ -50,5 +51,31 @@ class Compiler {
   // 编译文本
   compileText(node) {
     node.textContent = this.$vm[RegExp.$1]
+  }
+
+  // 编译元素
+  compileElement(node) {
+    // 获取所有属性
+    const nodeAttrs = node.attributes
+    Array.from(nodeAttrs).forEach(attr => {
+      // 规定：指令以a-xx="00"定义
+      const attrName = attr.name // a-xx
+      const exp = attr.value // oo
+      if (this.isDirective(attrName)) {
+        const dir = attrName.substring(2) // xx
+        // 执行指令
+        this[dir] && this[dir](node, exp) // this.text(node, exp)
+      }
+    })
+  }
+
+  // 指令
+  isDirective(attrName) {
+    return attrName.indexOf('a-') === 0
+  }
+
+  // a-text
+  text(node, exp) {
+    node.textContent = this.$vm[exp]
   }
 }
