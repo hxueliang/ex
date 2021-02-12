@@ -57,6 +57,31 @@
       // 第二类（被动受监听者的角色）：dtd.then dtd.done dtd.fail
       // 这两类应该分开执行，否则后果很严重
       // 可以在上面代码最后执行w.reject()试试后果
+
+      // 三
+      function waitHandle3() {
+        var dtd = $.Deferred() // 创建一个deferred对象
+
+        var wait = function(dtd) {
+          // 要求传入一个deferred对象
+          var task = function() {
+            console.log('三执行完成')
+            dtd.resolve() // 表示异步任务已经完成
+            // dtd.reject() // 表示异步任务已经失败或出错
+          }
+          setTimeout(task, 3000)
+          return dtd.promise() // 返回的是promise对象，而不是直接返回deferred对象
+        }
+
+        // 注意，这里一定要有返回值
+        return wait(dtd)
+      }
+
+      var w3 = waitHandle3() // w接收一个promise对象
+      // w3.reject() // 报错，解决‘二’的问题
+      $.when(w3)
+        .then(() => console.log('ok 1'))
+        .then(() => console.log('ok 2'))
     </script>
   </body>
 </html>
