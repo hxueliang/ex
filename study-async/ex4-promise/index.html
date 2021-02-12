@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Promise</title>
+  </head>
+  <body>
+    <!-- Bluebird  是一个第三方 Promise 规范实现库,它不仅完全兼容原生 Promise 对象,且比原生对象功能更强大。  -->
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/bluebird/3.7.2/bluebird.min.js"></script> -->
+
+    <script>
+      function loadImg(src) {
+        var promise = new Promise(function(resolse, reject) {
+          var img = document.createElement('img')
+          // throw new Error('自定义错误')
+          img.onload = function() {
+            resolse(img)
+          }
+          img.onerror = function() {
+            reject('图片加载失败')
+          }
+          img.src = src
+        })
+        return promise
+      }
+
+      var src = 'https://www.baidu.com/img/flexible/logo/pc/result@2.png'
+      var p = loadImg(src)
+      p.then(res => {
+        console.log(1, res.width)
+        return res
+      })
+        .then(res => console.log(2, res.height))
+        .catch(err => console.log(3, err))
+    </script>
+  </body>
+</html>
