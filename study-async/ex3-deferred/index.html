@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Deferred</title>
+  </head>
+  <body>
+    <h1>Deferred</h1>
+    <script src="https://lib.baomitu.com/jquery/3.5.0/jquery.js"></script>
+    <script>
+      // 一
+      var wait = function() {
+        var task = function() {
+          console.log('一执行完成')
+        }
+        setTimeout(task, 1000)
+      }
+      wait()
+
+      // 二
+      function waitHandle() {
+        var dtd = $.Deferred() // 创建一个deferred对象
+
+        var wait = function(dtd) {
+          // 要求传入一个deferred对象
+          var task = function() {
+            console.log('二执行完成')
+            // dtd.resolve() // 表示异步任务已经完成
+            dtd.reject() // 表示异步任务已经失败或出错
+          }
+          setTimeout(task, 2000)
+          return dtd
+        }
+
+        // 注意，这里一定要有返回值
+        return wait(dtd)
+      }
+      var w = waitHandle()
+      w.then(
+        () => console.log('suc 1'),
+        () => console.log('err 1')
+      )
+      w.then(
+        () => console.log('suc 2'),
+        () => console.log('err 2')
+      )
+      w.then(
+        () => console.log('suc 3'),
+        () => console.log('err 3')
+      )
+    </script>
+  </body>
+</html>

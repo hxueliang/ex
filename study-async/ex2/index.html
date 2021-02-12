@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://lib.baomitu.com/jquery/3.5.0/jquery.js"></script>
+    <script>
+      // 一 1.5以前
+      $.ajax({
+        url: './data.json',
+        success: function(res) {
+          console.log(1)
+          console.log(2)
+          console.log(3)
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      })
+      // 二 1.5以后
+      var ajax = $.ajax('./data.json')
+      ajax
+        .done(() => console.log('succ 1'))
+        .fail(() => console.log('fail 1'))
+        .done(() => console.log('succ 2'))
+        .fail(() => console.log('fail 2'))
+        .done(() => console.log('succ 3'))
+        .fail(() => console.log('fail 3'))
+
+      // 三 类似Pormise
+      var ajax = $.ajax('./data.json')
+      ajax
+        .then(
+          () => console.log('succ a'),
+          () => console.log('fail a')
+        )
+        .then(
+          () => console.log('succ b'),
+          () => console.log('fail b')
+        )
+        .then(
+          () => console.log('succ c'),
+          () => console.log('fail d')
+        )
+    </script>
+  </body>
+</html>
