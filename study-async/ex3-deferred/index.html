@@ -38,6 +38,7 @@
         return wait(dtd)
       }
       var w = waitHandle()
+      // w.reject() // 测试代码
       w.then(
         () => console.log('suc 1'),
         () => console.log('err 1')
@@ -50,6 +51,12 @@
         () => console.log('suc 3'),
         () => console.log('err 3')
       )
+
+      // 总结，dtd的API可分成两类，用意不同
+      // 第一类（主动去执行的函数）：dtd.resolve dtd.reject
+      // 第二类（被动受监听者的角色）：dtd.then dtd.done dtd.fail
+      // 这两类应该分开执行，否则后果很严重
+      // 可以在上面代码最后执行w.reject()试试后果
     </script>
   </body>
 </html>
