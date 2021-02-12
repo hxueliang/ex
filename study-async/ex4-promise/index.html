@@ -25,15 +25,40 @@
         })
         return promise
       }
+      // 一
+      // var src = 'https://www.baidu.com/img/flexible/logo/pc/result@2.png'
+      // var p = loadImg(src)
+      // p.then(res => {
+      //   console.log(1, res.width)
+      //   return res
+      // })
+      //   .then(res => console.log(2, res.height))
+      //   .catch(err => console.log(3, err))
 
-      var src = 'https://www.baidu.com/img/flexible/logo/pc/result@2.png'
-      var p = loadImg(src)
-      p.then(res => {
-        console.log(1, res.width)
-        return res
+      // 二 调慢网速测试
+      // var src1 = 'https://www.baidu.com/img/flexible/logo/pc/result.png'
+      // var p1 = loadImg(src1)
+      // p1.then(res => {
+      //   console.log(1, res.width)
+      //   var src2 = 'https://www.baidu.com/img/flexible/logo/pc/result@2.png'
+      //   var p2 = loadImg(src2)
+      //   return p2
+      // })
+      //   .then(res => console.log(2, res.width))
+      //   .catch(err => console.log(3, err))
+
+      // 三
+      var src1 = 'https://www.baidu.com/img/flexible/logo/pc/result.png'
+      var p1 = loadImg(src1)
+      var src2 = 'https://www.baidu.com/img/flexible/logo/pc/result@2.png'
+      var p2 = loadImg(src2)
+      Promise.all([p1, p2]).then(datas => {
+        console.log('all', datas[0])
+        console.log('all', datas[1])
       })
-        .then(res => console.log(2, res.height))
-        .catch(err => console.log(3, err))
+      Promise.race([p1, p2]).then(data => {
+        console.log('race', data) // 一个
+      })
     </script>
   </body>
 </html>
