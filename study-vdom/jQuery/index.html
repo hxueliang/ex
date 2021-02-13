@@ -35,6 +35,7 @@
         { name: '李四', age: 18, address: '上海' },
         { name: '王五', age: 19, address: '广州' }
       ]
+
       // 渲染函数
       function render(data) {
         // 获取容器
@@ -59,6 +60,7 @@
         // 追加入dom树
         $container.append($table)
       }
+
       // 点击按钮
       $('#btn1').click(function() {
         var data1 = JSON.parse(JSON.stringify(data))
@@ -70,8 +72,18 @@
       $('#btn2').click(function() {
         render(data)
       })
+
       // 初始渲染
       render(data)
+
+      // 测试创建div的属性，侧面反映创建dom节点，需要很资源
+      var div = document.createElement('div')
+      var key,
+        res = ''
+      for (key in div) {
+        res += key + ' | '
+      }
+      console.log(res)
     </script>
   </body>
 </html>
