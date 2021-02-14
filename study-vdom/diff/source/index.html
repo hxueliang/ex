@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>createElement</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="createElement.js"></script>
+    <script>
+      var data = {
+        tag: 'ul',
+        attrs: { id: 'list' },
+        children: [
+          {
+            tag: 'li',
+            attrs: { className: 'item' },
+            children: ['item 1']
+          },
+          {
+            tag: 'li',
+            attrs: { className: 'item' },
+            children: ['item 2']
+          },
+          {
+            tag: 'li',
+            attrs: { className: 'item' },
+            children: [
+              'item 3',
+              {
+                tag: 'b',
+                attrs: {},
+                children: [' bbbbbbb']
+              }
+            ]
+          }
+        ]
+      }
+
+      var container = document.getElementById('container')
+      console.log(createElement(data), '==')
+      container.appendChild(createElement(data))
+    </script>
+  </body>
+</html>
