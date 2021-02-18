@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue to do list</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="title" />
+      <button @click="add">点击</button>
+      <ul>
+        <li v-for="item in list">{{item}}</li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var data = {
+        title: '',
+        list: []
+      }
+      new Vue({
+        el: '#app',
+        data,
+        methods: {
+          add() {
+            if (this.tittle === '') {
+              return
+            }
+            this.list.push(this.title)
+            this.title = ''
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
