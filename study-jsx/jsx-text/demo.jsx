@@ -1,3 +1,5 @@
+/* @jsx h */
+
 var profile = (
   <div>
     <img src='avatar.pgn' className='profile' />
